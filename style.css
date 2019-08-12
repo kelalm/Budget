@@ -1,5 +1,9 @@
 :root {
   --color-bg-tan: #f8f6f9;
+  --color-navy-text: #4a4f74;
+
+  --color-green: #62c15d;
+  --color-red: #d65555;
 }
 
 * {
@@ -17,7 +21,7 @@ body {
   font-weight: 300;
   letter-spacing: 1px;
   line-height: 1.6;
-  color: var(--color-grey-light-1);
+  color: var(--color-navy-text);
   background: #141e30; /* fallback for old browsers */
   background: var(--color-grey-light-1);
   background-size: cover;
@@ -27,3 +31,131 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.container {
+  width: 100%;
+  padding: 2rem;
+  max-width: 90rem;
+  min-height: 100vh;
+}
+
+.head-panel {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  padding: 2rem;
+  text-align: center;
+}
+
+.summary {
+  line-height: 1;
+  margin-bottom: 4rem;
+}
+
+.month_year {
+  font-size: 1.8rem;
+  color: var(--color-grey-light-3);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.net_money {
+  font-weight: 700;
+  font-size: 6.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.head_label {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.mid-panel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  color: var(--color-green);
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 4rem;
+}
+
+.income_group {
+  color: var(--color-green);
+  flex: 1;
+}
+
+.expenses_group {
+  color: var(--color-red);
+  flex: 1;
+}
+
+.income_label,
+.income_amount,
+.expenses_label,
+.expenses_amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* INPUT PANEL */
+
+.input-panel {
+  display: flex;
+  align-items: flex-end;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.input_note {
+  flex: 3;
+  text-align: left;
+}
+
+.input_value {
+  flex: 1;
+  text-align: left;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  line-height: 1;
+  display: flex;
+}
+
+.form_input {
+  font-family: "Lato", sans-serif;
+  width: 100%;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-green);
+  transition: all 0.3s;
+  border-bottom: 2px solid rgba(98, 193, 93, 0.6);
+}
+
+input:focus {
+  outline: none;
+}
+
+/* .form_label {
+  position: absolute;
+  padding: 5px 10px;
+  color: var(--color-navy-text);
+  font-size: 1.4rem;
+  display: block;
+  margin-top: 3px;
+  opacity: 1;
+  transform: translateY(0rem);
+  transition: all 0.3s;
+} */
