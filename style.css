@@ -1,0 +1,29 @@
+:root {
+  --color-bg-tan: #f8f6f9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  color: var(--color-grey-light-1);
+  background: #141e30; /* fallback for old browsers */
+  background: var(--color-grey-light-1);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
