@@ -6,6 +6,8 @@ var startup = (function() {
   // Retrieve Transactions from Local Storage, Populate List
 })();
 
+// TRANSACTION FUNCTIONALITY
+
 function createTransaction() {
   // Create an object and gather the information for the transaction.
 
@@ -28,9 +30,10 @@ function createTransaction() {
 }
 
 function addTransaction() {
-  // Add to local storage
-
   var enteredTransaction = createTransaction();
+
+  // Add to local storage
+  addStorage(enteredTransaction);
 
   // Display this on the transaction list
   const div = document.createElement("div");
@@ -53,3 +56,38 @@ function addTransaction() {
 }
 
 function deleteTransaction() {}
+
+// LOCAL STORAGE FUNCTIONALITY
+
+function addStorage(transaction) {
+  console.log("Add storage");
+  var key = "data";
+
+  var data = transaction;
+
+  //localStorage setItem
+  if ("localStorage" in window) {
+    console.log(
+      "Setting item " +
+        key.value +
+        " to " +
+        JSON.stringify(data) +
+        " in localStorage"
+    );
+    localStorage.setItem(key, JSON.stringify(data));
+  } else {
+    alert("Error - no local storage in current window.");
+  }
+}
+
+function removeStorage() {
+  //localStorage removeItem
+  if ("localStorage" in window) {
+    if (localStorage.length > 0) {
+      localStorage.removeItem("data");
+      location.reload();
+    }
+  } else {
+    alert("Error - no local storage in current window.");
+  }
+}
