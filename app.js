@@ -1,9 +1,31 @@
+// Transactons Data Structure
+var transactions = {
+  logs: {
+    incomes: [],
+    expenses: []
+  },
+  totals: {
+    incomes: 0,
+    expenses: 0
+  },
+  budget: 0
+};
+
 // Automatic Startup Functionality
 
 var startup = (function() {
-  console.log("BUDGET APP STARTUP");
+  console.log("Startup Function");
 
   // Retrieve Transactions from Local Storage, Populate List
+
+  var retrieved = getStorage();
+
+  if (retrieved !== undefined) {
+    console.log(typeof retrieved);
+    populateTransactions(retrieved);
+  } else {
+    addStorage(transactions);
+  }
 })();
 
 // TRANSACTION FUNCTIONALITY
@@ -32,49 +54,74 @@ function createTransaction() {
 function addTransaction() {
   var enteredTransaction = createTransaction();
 
+  // Add transaction to data structure
+
+  transactions.logs.incomes.unshift(enteredTransaction);
+
   // Add to local storage
-  addStorage(enteredTransaction);
-
-  // Display this on the transaction list
-  const div = document.createElement("div");
-
-  div.className = "row";
-
-  div.innerHTML =
-    '<div class="transaction_item transaction_item-income" id="income-' +
-    enteredTransaction.id +
-    '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
-    enteredTransaction.description +
-    '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">' +
-    enteredTransaction.value +
-    '</div></div><button class="item__delete--btn"></button></div>';
-
-  document.getElementById("transactions").appendChild(div);
+  addStorage(transactions);
 
   console.log("Transaction added");
   console.log(enteredTransaction);
 }
 
+function populateTransactions(transactions) {
+  // Parse Transactions and retrieve each one.
+  console.log("transactions -- " + JSON.stringify(transactions.logs.incomes));
+
+  console.log("transaction length -- " + transactions.logs.incomes.length);
+
+  // Display this on the transaction list
+
+  if (transactions.logs.incomes.length === 0) {
+    console.log("Ignore the Income array");
+  } else {
+    transactions.logs.incomes.forEach(transaction => {
+      const div = document.createElement("div");
+      div.className = "row";
+
+      div.innerHTML =
+        '<div class="transaction_item transaction_item-income" id="income-' +
+        transaction.id +
+        '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
+        transaction.description +
+        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">' +
+        transaction.value +
+        '</div></div><button class="item__delete--btn"></button></div>';
+
+      document.getElementById("transactions").appendChild(div);
+    });
+  }
+}
+
 function deleteTransaction() {}
+
+// ======== *** ======== //
 
 // LOCAL STORAGE FUNCTIONALITY
 
-function addStorage(transaction) {
+function addStorage(transactions) {
   console.log("Add storage");
   var key = "data";
 
-  var data = transaction;
+  var allData = getStorage();
+
+  console.log("All data " + allData);
 
   //localStorage setItem
   if ("localStorage" in window) {
-    console.log(
-      "Setting item " +
-        key.value +
-        " to " +
-        JSON.stringify(data) +
-        " in localStorage"
-    );
-    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(transactions));
+  } else {
+    alert("Error - no local storage in current window.");
+  }
+}
+
+function getStorage() {
+  //localStorage removeItem
+  if ("localStorage" in window) {
+    if (localStorage.length > 0) {
+      return JSON.parse(localStorage.getItem("data"));
+    }
   } else {
     alert("Error - no local storage in current window.");
   }
@@ -91,3 +138,5 @@ function removeStorage() {
     alert("Error - no local storage in current window.");
   }
 }
+
+// ======== *** ======== //
