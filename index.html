@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900"
+      rel="stylesheet"
+    />
     <link type="text/css" rel="stylesheet" href="style.css" />
     <title>Budget</title>
   </head>
@@ -12,45 +15,54 @@
     <div class="container">
       <div class="interface">
         <div class="head-panel">
-            <div class="summary">
-                <div class="month_year">January 2020</div>
-                <div class="net_money">&dollar;100</div>
-                <div class="head_label">Available Money</div>
-            </div>
+          <div class="summary">
+            <div class="month_year">January 2020</div>
+            <div class="net_money"></div>
+            <div class="head_label">Available Money</div>
+          </div>
         </div>
         <div class="mid-panel">
-            <div class="income_group">
-                <div class="income_label">Income</div>
-                <div class="income_amount">&dollar;</div>
-            </div>
-            <div class="input_switch">
-                <label class="switch" for="checkbox">
-                    <input type="checkbox" id="checkbox"/>
-                    <div class="slider-round"></div>
-                </label>
-            </div>
-            <div class="expenses_group">
-                <div class="expenses_label">Expenses</div>
-                <div class="expenses_amount">&dollar;</div>
-            </div>
+          <div class="income_group">
+            <div class="income_label">Income</div>
+            <div class="income_amount"></div>
+          </div>
+          <div class="input_switch">
+            <label class="switch" for="checkbox">
+              <input type="checkbox" id="checkbox" />
+              <div class="slider-round"></div>
+            </label>
+          </div>
+          <div class="expenses_group">
+            <div class="expenses_label">Expenses</div>
+            <div class="expenses_amount"></div>
+          </div>
         </div>
         <div class="input-panel">
-            <div class="input_note">
-                <input type="text" id="note" class="add_note form_input" placeholder="Add a note"/>
-                <label for="note" class="form_label"></label>
-            </div>
-            <div class="input_value">
-                <input type="number" id="value" class="add_note form_input" placeholder="Enter a value"/>
-                <label for="note" class="form_label"></label>
-            </div>
-            <div class="input_submit">
-                <button class="add_button" onclick="addTransaction();">
-                    Add
-                </button>
-            </div>
+          <div class="input_note">
+            <input
+              type="text"
+              id="note"
+              class="add_note form_input"
+              placeholder="Add a note"
+            />
+            <label for="note" class="form_label"></label>
+          </div>
+          <div class="input_value">
+            <input
+              type="number"
+              id="value"
+              class="add_note form_input"
+              placeholder="Enter a value"
+            />
+            <label for="note" class="form_label"></label>
+          </div>
+          <div class="input_submit">
+            <button class="add_button" onclick="addTransaction();">
+              Add
+            </button>
+          </div>
         </div>
-        <div class="transaction-panel" id="transactions">
-        </div>
+        <div class="transaction-panel" id="transactions"></div>
       </div>
     </div>
     <script src="app.js"></script>

@@ -40,6 +40,7 @@ function updateHeaderInfo() {
   // reset non-static info
   document.getElementsByClassName("income_amount")[0].innerHTML = "$";
   document.getElementsByClassName("expenses_amount")[0].innerHTML = "$";
+  document.getElementsByClassName("net_money")[0].innerHTML = "$";
 
   // Update the date at the top
   const months = [
@@ -63,21 +64,23 @@ function updateHeaderInfo() {
   var transactions = getStorage();
 
   // Update Income Label
-  var amount = 0;
+  var inc = 0;
   transactions.logs.incomes.forEach(transaction => {
-    amount += parseInt(transaction.value);
+    inc += parseInt(transaction.value);
   });
 
-  document.getElementsByClassName("income_amount")[0].innerHTML += amount;
+  document.getElementsByClassName("income_amount")[0].innerHTML += inc;
 
   // Update Expenses Label
-  var amount = 0;
+  var exp = 0;
   transactions.logs.expenses.forEach(transaction => {
-    amount += parseInt(transaction.value);
+    exp += parseInt(transaction.value);
   });
-  document.getElementsByClassName("expenses_amount")[0].innerHTML += amount;
+  document.getElementsByClassName("expenses_amount")[0].innerHTML += exp;
 
   // Update Net Label
+
+  document.getElementsByClassName("net_money")[0].innerHTML += inc - exp;
 }
 
 // TRANSACTION FUNCTIONALITY
