@@ -22,11 +22,19 @@ var startup = (function() {
 
   if (retrieved !== undefined) {
     console.log(typeof retrieved);
-    populateTransactions(retrieved);
+    updateUI(retrieved);
   } else {
     addStorage(transactions);
   }
 })();
+
+// Update User Interface With Updated Info
+
+function updateUI(retrieved) {
+  console.log("Updating UI");
+  populateTransactions(retrieved);
+  // updateHeaderInfo();
+}
 
 // TRANSACTION FUNCTIONALITY
 
@@ -35,9 +43,17 @@ function createTransaction() {
 
   // To generate a unique id, get all the transactions and add one to the id of the last one.
 
-  //   generatedId = data.allItems[type][data.allItems[type].length - 1].id + 1;
-  generatedId = 1;
-  typeEntered = "income";
+  var allTransactions = getStorage();
+
+  var generatedId =
+    allTransactions.logs.incomes.length +
+    allTransactions.logs.expenses.length +
+    1;
+  if (document.getElementById("checkbox").checked === false) {
+    typeEntered = "income";
+  } else {
+    typeEntered = "expense";
+  }
   descriptionEntered = document.getElementById("note").value;
   valueEntered = document.getElementById("value").value;
 
@@ -52,20 +68,31 @@ function createTransaction() {
 }
 
 function addTransaction() {
+  // Add entered transaction to income or expenses array of current storage
+
   var enteredTransaction = createTransaction();
 
-  // Add transaction to data structure
+  var currentStorage = getStorage();
+  console.log("Current storage - " + JSON.stringify(currentStorage.logs));
 
-  transactions.logs.incomes.unshift(enteredTransaction);
+  if (enteredTransaction.type === "income") {
+    currentStorage.logs.incomes.unshift(enteredTransaction);
+  } else if (enteredTransaction.type === "expense") {
+    currentStorage.logs.expenses.unshift(enteredTransaction);
+  }
 
-  // Add to local storage
-  addStorage(transactions);
+  // Add entire data structure to local storage
+  addStorage(currentStorage);
+
+  updateUI(currentStorage);
 
   console.log("Transaction added");
   console.log(enteredTransaction);
 }
 
 function populateTransactions(transactions) {
+  document.getElementById("transactions").innerHTML = "";
+
   // Parse Transactions and retrieve each one.
   console.log("transactions -- " + JSON.stringify(transactions.logs.incomes));
 
@@ -85,7 +112,23 @@ function populateTransactions(transactions) {
         transaction.id +
         '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
         transaction.description +
-        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">' +
+        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">$' +
+        transaction.value +
+        '</div></div><button class="item__delete--btn"></button></div>';
+
+      document.getElementById("transactions").appendChild(div);
+    });
+
+    transactions.logs.expenses.forEach(transaction => {
+      const div = document.createElement("div");
+      div.className = "row";
+
+      div.innerHTML =
+        '<div class="transaction_item transaction_item-income" id="income-' +
+        transaction.id +
+        '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
+        transaction.description +
+        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">$' +
         transaction.value +
         '</div></div><button class="item__delete--btn"></button></div>';
 
