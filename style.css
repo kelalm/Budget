@@ -148,6 +148,37 @@ input:focus {
   outline: none;
 }
 
+.transaction-panel {
+  padding: 2rem;
+}
+
+.transaction_item {
+  display: flex;
+  padding: 2rem 1rem;
+  align-items: center;
+}
+
+.transaction_item_note {
+  flex: 1;
+  line-height: 1;
+}
+
+.transaction_item_note-info {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.transaction_item_value {
+  text-align: right;
+  transition: all 0.3s;
+}
+
+.transaction_item_value-number {
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
 /* .form_label {
   position: absolute;
   padding: 5px 10px;

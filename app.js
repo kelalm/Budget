@@ -36,6 +36,31 @@ function updateUI(retrieved) {
   updateHeaderInfo();
 }
 
+function updateColor() {
+  console.log("Updating color...");
+  if (document.getElementById("checkbox").checked === true) {
+    console.log("Make it red");
+    document.getElementsByClassName("form_input")[0].style.color =
+      "var(--color-red)";
+    document.getElementsByClassName("form_input")[1].style.color =
+      "var(--color-red)";
+    document.getElementsByClassName("form_input")[0].style.borderBottom =
+      "2px solid rgba(214, 85, 85, 0.6)";
+    document.getElementsByClassName("form_input")[1].style.borderBottom =
+      "2px solid rgba(214, 85, 85, 0.6)";
+  } else {
+    console.log("Make it green");
+    document.getElementsByClassName("form_input")[0].style.color =
+      "var(--color-green)";
+    document.getElementsByClassName("form_input")[1].style.color =
+      "var(--color-green)";
+    document.getElementsByClassName("form_input")[0].style.borderBottom =
+      "2px solid rgba(98, 193, 93, 0.6)";
+    document.getElementsByClassName("form_input")[1].style.borderBottom =
+      "2px solid rgba(98, 193, 93, 0.6)";
+  }
+}
+
 function updateHeaderInfo() {
   // reset non-static info
   document.getElementsByClassName("income_amount")[0].innerHTML = "$";
@@ -133,6 +158,9 @@ function addTransaction() {
 
   updateUI(currentStorage);
 
+  document.getElementsByClassName("form_input")[0].value = "";
+  document.getElementsByClassName("form_input")[1].value = "";
+
   console.log("Transaction added");
   console.log(enteredTransaction);
 }
@@ -159,7 +187,7 @@ function populateTransactions(transactions) {
         transaction.id +
         '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
         transaction.description +
-        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">$' +
+        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number" style="color: var(--color-green)">+ $' +
         transaction.value +
         '</div></div><button class="item__delete--btn"></button></div>';
 
@@ -175,7 +203,7 @@ function populateTransactions(transactions) {
         transaction.id +
         '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
         transaction.description +
-        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number">$' +
+        '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number" style="color: var(--color-red)">- $' +
         transaction.value +
         '</div></div><button class="item__delete--btn"></button></div>';
 
