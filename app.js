@@ -33,7 +33,28 @@ var startup = (function() {
 function updateUI(retrieved) {
   console.log("Updating UI");
   populateTransactions(retrieved);
-  // updateHeaderInfo();
+  updateHeaderInfo();
+}
+
+function updateHeaderInfo() {
+  // Update the date at the top
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  document.getElementsByClassName("month_year")[0].innerHTML =
+    months[new Date().getMonth()] + " " + new Date().getFullYear();
 }
 
 // TRANSACTION FUNCTIONALITY
