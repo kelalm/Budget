@@ -199,7 +199,9 @@ function populateTransactions(transactions) {
         transaction.description +
         '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number" style="color: var(--color-green)">+ $' +
         transaction.value +
-        '</div></div><button class="item__delete--btn"></button></div>';
+        '</div></div><button class="delete_button" id="' +
+        transaction.id +
+        '"onclick="deleteTransaction(this.id)">-</button></div>';
 
       document.getElementById("transactions").appendChild(div);
     });
@@ -213,20 +215,40 @@ function populateTransactions(transactions) {
       div.className = "row";
 
       div.innerHTML =
-        '<div class="transaction_item transaction_item-income" id="income-' +
+        '<div class="transaction_item transaction_item-income" id="expense-' +
         transaction.id +
         '"><div class="transaction_item_note"><div class="transaction_item_note-info">' +
         transaction.description +
         '</div></div><div class="transaction_item_value"><div class="transaction_item_value-number" style="color: var(--color-red)">- $' +
         transaction.value +
-        '</div></div><button class="item__delete--btn"></button></div>';
+        '</div></div><button class="delete_button" id="' +
+        transaction.id +
+        '"onclick="deleteTransaction(this.id)">-</button></div>';
 
       document.getElementById("transactions").appendChild(div);
     });
   }
 }
 
-function deleteTransaction() {}
+function deleteTransaction(id) {
+  console.log("DELETING TRANSACTION " + id);
+  var allTransactions = getStorage();
+
+  for (var i = allTransactions.logs.incomes.length - 1; i >= 0; i--) {
+    if (allTransactions.logs.incomes[i].id == id) {
+      allTransactions.logs.incomes.splice(i, 1);
+    }
+  }
+
+  for (var i = allTransactions.logs.expenses.length - 1; i >= 0; i--) {
+    if (allTransactions.logs.expenses[i].id == id) {
+      allTransactions.logs.expenses.splice(i, 1);
+    }
+  }
+
+  addStorage(allTransactions);
+  updateUI(allTransactions);
+}
 
 // ======== *** ======== //
 

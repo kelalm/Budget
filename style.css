@@ -265,3 +265,13 @@ input:checked + .slider:before {
   border-radius: 50%;
   border: 3px solid var(--color-green);
 }
+
+.delete_button {
+  margin-left: 1rem;
+  display: block;
+  height: 25px;
+  width: 25px;
+  border-radius: 35%;
+  border: 3px dotted var(--color-red);
+  color: var(--color-red);
+}
