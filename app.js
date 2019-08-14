@@ -19,12 +19,14 @@ var startup = (function() {
   // Retrieve Transactions from Local Storage, Populate List
 
   var retrieved = getStorage();
+  console.log("TYPE - " + typeof retrieved);
 
   if (retrieved !== undefined) {
-    console.log(typeof retrieved);
+    console.log("HELLO! - " + typeof retrieved);
     updateUI(retrieved);
   } else {
     addStorage(transactions);
+    updateUI(transactions);
   }
 })();
 
@@ -201,7 +203,11 @@ function populateTransactions(transactions) {
 
       document.getElementById("transactions").appendChild(div);
     });
+  }
 
+  if (transactions.logs.expenses.length === 0) {
+    console.log("Ignore the Expense array");
+  } else {
     transactions.logs.expenses.forEach(transaction => {
       const div = document.createElement("div");
       div.className = "row";
