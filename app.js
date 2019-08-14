@@ -48,6 +48,10 @@ function updateColor() {
       "2px solid rgba(214, 85, 85, 0.6)";
     document.getElementsByClassName("form_input")[1].style.borderBottom =
       "2px solid rgba(214, 85, 85, 0.6)";
+    document.getElementsByClassName("add_button")[0].style.color =
+      "var(--color-red)";
+    document.getElementsByClassName("add_button")[0].style.border =
+      "3px solid var(--color-red)";
   } else {
     console.log("Make it green");
     document.getElementsByClassName("form_input")[0].style.color =
@@ -58,6 +62,10 @@ function updateColor() {
       "2px solid rgba(98, 193, 93, 0.6)";
     document.getElementsByClassName("form_input")[1].style.borderBottom =
       "2px solid rgba(98, 193, 93, 0.6)";
+    document.getElementsByClassName("add_button")[0].style.color =
+      "var(--color-green)";
+    document.getElementsByClassName("add_button")[0].style.border =
+      "3px solid var(--color-green)";
   }
 }
 
