@@ -11,18 +11,14 @@ var transactions = {
   budget: 0
 };
 
-// Automatic Startup Functionality
+// Startup Functionality
 
 var startup = (function() {
-  console.log("Startup Function");
-
   // Retrieve Transactions from Local Storage, Populate List
 
   var retrieved = getStorage();
-  console.log("TYPE - " + typeof retrieved);
 
   if (retrieved !== undefined) {
-    console.log("HELLO! - " + typeof retrieved);
     updateUI(retrieved);
   } else {
     addStorage(transactions);
@@ -30,18 +26,17 @@ var startup = (function() {
   }
 })();
 
-// Update User Interface With Updated Info
+// ======== *** ======== //
+
+// USER INTERFACE FUNCTIONALITY
 
 function updateUI(retrieved) {
-  console.log("Updating UI");
   populateTransactions(retrieved);
   updateHeaderInfo();
 }
 
 function updateColor() {
-  console.log("Updating color...");
   if (document.getElementById("checkbox").checked === true) {
-    console.log("Make it red");
     document.getElementsByClassName("form_input")[0].style.color =
       "var(--color-red)";
     document.getElementsByClassName("form_input")[1].style.color =
@@ -55,7 +50,6 @@ function updateColor() {
     document.getElementsByClassName("add_button")[0].style.border =
       "3px solid var(--color-red)";
   } else {
-    console.log("Make it green");
     document.getElementsByClassName("form_input")[0].style.color =
       "var(--color-green)";
     document.getElementsByClassName("form_input")[1].style.color =
@@ -70,6 +64,7 @@ function updateColor() {
       "3px solid var(--color-green)";
   }
 }
+// ======== *** ======== //
 
 function updateHeaderInfo() {
   // reset non-static info
@@ -118,6 +113,8 @@ function updateHeaderInfo() {
   document.getElementsByClassName("net_money")[0].innerHTML += inc - exp;
 }
 
+// ======== *** ======== //
+
 // TRANSACTION FUNCTIONALITY
 
 function createTransaction() {
@@ -127,10 +124,21 @@ function createTransaction() {
 
   var allTransactions = getStorage();
 
-  var generatedId =
-    allTransactions.logs.incomes.length +
-    allTransactions.logs.expenses.length +
-    1;
+  // Read the first ID in each array and get highest ID.
+
+  var first =
+    allTransactions.logs.incomes[0] !== undefined
+      ? allTransactions.logs.incomes[0].id
+      : 0;
+
+  var second =
+    allTransactions.logs.expenses[0] !== undefined
+      ? allTransactions.logs.expenses[0].id
+      : 0;
+
+  var highest = Math.max(first, second);
+
+  var generatedId = highest + 1;
   if (document.getElementById("checkbox").checked === false) {
     typeEntered = "income";
   } else {
@@ -155,7 +163,6 @@ function addTransaction() {
   var enteredTransaction = createTransaction();
 
   var currentStorage = getStorage();
-  console.log("Current storage - " + JSON.stringify(currentStorage.logs));
 
   if (enteredTransaction.type === "income") {
     currentStorage.logs.incomes.unshift(enteredTransaction);
@@ -170,23 +177,16 @@ function addTransaction() {
 
   document.getElementsByClassName("form_input")[0].value = "";
   document.getElementsByClassName("form_input")[1].value = "";
-
-  console.log("Transaction added");
-  console.log(enteredTransaction);
 }
 
 function populateTransactions(transactions) {
   document.getElementById("transactions").innerHTML = "";
 
   // Parse Transactions and retrieve each one.
-  console.log("transactions -- " + JSON.stringify(transactions.logs.incomes));
-
-  console.log("transaction length -- " + transactions.logs.incomes.length);
-
   // Display this on the transaction list
 
   if (transactions.logs.incomes.length === 0) {
-    console.log("Ignore the Income array");
+    // Ignore the income array
   } else {
     transactions.logs.incomes.forEach(transaction => {
       const div = document.createElement("div");
@@ -208,7 +208,7 @@ function populateTransactions(transactions) {
   }
 
   if (transactions.logs.expenses.length === 0) {
-    console.log("Ignore the Expense array");
+    // Ignore the expense array
   } else {
     transactions.logs.expenses.forEach(transaction => {
       const div = document.createElement("div");
@@ -231,7 +231,6 @@ function populateTransactions(transactions) {
 }
 
 function deleteTransaction(id) {
-  console.log("DELETING TRANSACTION " + id);
   var allTransactions = getStorage();
 
   for (var i = allTransactions.logs.incomes.length - 1; i >= 0; i--) {
@@ -252,15 +251,14 @@ function deleteTransaction(id) {
 
 // ======== *** ======== //
 
+// ======== *** ======== //
+
 // LOCAL STORAGE FUNCTIONALITY
 
 function addStorage(transactions) {
-  console.log("Add storage");
   var key = "data";
 
   var allData = getStorage();
-
-  console.log("All data " + allData);
 
   //localStorage setItem
   if ("localStorage" in window) {
@@ -275,18 +273,6 @@ function getStorage() {
   if ("localStorage" in window) {
     if (localStorage.length > 0) {
       return JSON.parse(localStorage.getItem("data"));
-    }
-  } else {
-    alert("Error - no local storage in current window.");
-  }
-}
-
-function removeStorage() {
-  //localStorage removeItem
-  if ("localStorage" in window) {
-    if (localStorage.length > 0) {
-      localStorage.removeItem("data");
-      location.reload();
     }
   } else {
     alert("Error - no local storage in current window.");
